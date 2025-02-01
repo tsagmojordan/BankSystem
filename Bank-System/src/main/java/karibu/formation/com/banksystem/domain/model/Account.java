@@ -1,7 +1,7 @@
 package karibu.formation.com.banksystem.domain.model;
 
-import karibu.formation.com.banksystem.domain.Service.ConvertTo;
-import karibu.formation.com.banksystem.domain.constant.Constant;
+
+import karibu.formation.com.banksystem.domain.Service.Convert;
 import karibu.formation.com.banksystem.domain.enums.Currency;
 
 import java.util.ArrayList;
@@ -38,9 +38,15 @@ public class Account {
     }
 
     public void deposit(Money money) {
-        switch (money.currency()){
-            case EURO:
+        if (money.isNegative(money)|| money.isEqualToZero(money)) {
+            throw new IllegalArgumentException("Money cannot be negative or zero");
         }
+        if(money.getCurrency() != Currency.DOLLAR){
+            money.setAmount(Convert.convertToDollar(money.getAmount(),money.getCurrency()));
+            money.setCurrency(Currency.DOLLAR);
+        }
+
+        setMoney(money);
     }
 
     public void setMoney(Money money) {

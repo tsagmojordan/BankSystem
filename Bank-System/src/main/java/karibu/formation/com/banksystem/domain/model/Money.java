@@ -1,14 +1,20 @@
 package karibu.formation.com.banksystem.domain.model;
 
 
-import karibu.formation.com.banksystem.domain.constant.Constant;
 import karibu.formation.com.banksystem.domain.enums.Currency;
+import lombok.Data;
 
-public record Money(Currency currency, double amount) {
+@Data
+public class Money {
 
-    public double getAmount() {
-        return amount;
+    private Currency currency;
+    private double amount;
+
+    public Money(Currency currency, double amount) {
+        this.currency=currency;
+        this.amount=amount;
     }
+
 
     public boolean isPositive(Money money) {
         return money.amount > 0;
@@ -21,13 +27,6 @@ public record Money(Currency currency, double amount) {
     public boolean isNegative(Money money) {
         return money.amount < 0;
     }
-
-    public double convertToDollar(double amount) {
-     return 0;
-    }
-
-
-
 
 
 }
